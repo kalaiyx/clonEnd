@@ -1,0 +1,3 @@
+# clonEnd - Vercel Serverless Deployment Requirements
+# Note: Streamlit & OpenCV exceed Vercel Serverless Function limits and are not needed on Vercel.
+# To run the local Streamlit application: pip install -r requirements-streamlit.txt

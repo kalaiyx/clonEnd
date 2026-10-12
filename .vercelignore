@@ -1,0 +1,7 @@
+.git
+.github
+__pycache__
+*.pyc
+test_core.py
+clonEnd_Project_Guide.html
+requirements-streamlit.txt

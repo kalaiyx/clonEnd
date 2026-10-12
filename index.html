@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>clonEnd | AI-Powered 3-Lock Aadhaar Clone Defense</title>
+    <meta name="description" content="AI-Powered 3-Lock Biometric Defense Shield against Aadhaar fingerprint cloning scams at rural Bank Mitra Micro-ATM kiosks.">
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
+</head>
+<body>
+
+<div class="app-container">
+    <!-- Top Navigation Header -->
+    <header class="clonend-header">
+        <div>
+            <h1 class="clonend-title">🛡️ clonEnd</h1>
+            <div class="clonend-subtitle">
+                AI-Powered 3-Lock Biometric Defense Shield &bull; Cybersecurity &amp; Digital India
+            </div>
+        </div>
+        <div>
+            <span class="clonend-badge">Live Protection Active</span>
+        </div>
+    </header>
+
+    <!-- Main Workspace Layout -->
+    <div class="main-layout">
+        <!-- Sidebar: Bank Mitra Terminal Controls -->
+        <aside class="sidebar-panel">
+            <div style="text-align: center; margin-bottom: 16px;">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/1200px-Aadhaar_Logo.svg.png" 
+                     alt="Aadhaar Logo" style="height: 55px; width: auto;" />
+            </div>
+
+            <div class="sidebar-section">
+                <h3>🏧 Bank Mitra Kiosk Setup</h3>
+                <div class="form-group">
+                    <label for="kioskCitySelect">Current Micro-ATM Kiosk City:</label>
+                    <select id="kioskCitySelect" class="form-control"></select>
+                </div>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 16px 0;" />
+
+            <div class="sidebar-section">
+                <h3>👤 Customer Profile Lookup</h3>
+                <div class="form-group">
+                    <label for="userSelect">Select Rural Beneficiary:</label>
+                    <select id="userSelect" class="form-control"></select>
+                </div>
+
+                <div id="profileCard" class="profile-card">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 16px 0;" />
+
+            <div class="sidebar-section">
+                <h3>💸 Withdrawal Request</h3>
+                <div class="form-group">
+                    <label>
+                        Cash Withdrawal Amount: 
+                        <span id="amountVal" class="slider-val-badge">₹3,000</span>
+                    </label>
+                    <input type="range" id="amountSlider" min="500" max="10000" step="500" value="3000" style="width: 100%;" />
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Minutes Since Last Deed Activity:
+                        <span id="elapsedVal" class="slider-val-badge">10 mins</span>
+                    </label>
+                    <input type="range" id="elapsedSlider" min="5" max="360" step="5" value="10" style="width: 100%;" />
+                </div>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 16px 0;" />
+
+            <div class="sidebar-section">
+                <a href="clonEnd_Project_Guide.pdf" download="clonEnd_Project_Guide.pdf" class="btn-secondary" style="width: 100%; justify-content: center;">
+                    📄 Download Project Guide (PDF)
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main>
+            <!-- Navigation Tabs -->
+            <nav class="tabs-nav">
+                <button class="tab-btn active" data-tab="tab-kiosk">🏦 Bank Mitra Terminal (Live Demo)</button>
+                <button class="tab-btn" data-tab="tab-audit">📊 Fraud Audit &amp; Intelligence Logs</button>
+                <button class="tab-btn" data-tab="tab-sandbox">🗺️ Geo-Velocity Anomaly Sandbox</button>
+                <button class="tab-btn" data-tab="tab-presentation">📖 Innovation &amp; Pitch Guide (PPT)</button>
+            </nav>
+
+            <!-- =============================================================== -->
+            <!-- TAB 1: BANK MITRA TERMINAL -->
+            <!-- =============================================================== -->
+            <section id="tab-kiosk" class="tab-content active">
+                <div style="margin-bottom: 18px;">
+                    <h3 style="font-size: 1.3rem; font-weight: 700; color: #0f172a;">🔒 3-Lock Biometric Verification Pipeline</h3>
+                    <p style="font-size: 0.88rem; color: var(--text-muted);">
+                        All 3 security layers must validate. If any layer fails, transaction is blocked and cash is safe.
+                    </p>
+                </div>
+
+                <div class="locks-grid">
+                    <!-- LOCK 1: ALIVE LOCK -->
+                    <div class="lock-card">
+                        <div>
+                            <div class="lock-title">
+                                <span style="font-size: 1.3rem;">👁️</span> Lock 1: Alive Lock
+                            </div>
+                            <div class="lock-subtitle">AI analyzes blood perfusion, skin chrominance &amp; micro-texture.</div>
+
+                            <div class="form-group" style="margin-bottom: 12px;">
+                                <label style="margin-bottom: 4px;">Scanner Input Source:</label>
+                                <div style="display: flex; gap: 14px; font-size: 0.85rem; font-weight: 600;">
+                                    <label style="cursor: pointer;">
+                                        <input type="radio" name="inputMode" id="inputModeSamples" value="sample" checked /> Pre-loaded Scenarios
+                                    </label>
+                                    <label style="cursor: pointer;">
+                                        <input type="radio" name="inputMode" id="inputModeWebcam" value="webcam" /> Live Laptop Webcam
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div id="sampleSelectorBox" class="form-group" style="margin-bottom: 12px;">
+                                <label for="sampleSelect">Biometric Presentation Attack:</label>
+                                <select id="sampleSelect" class="form-control" style="font-size: 0.85rem;">
+                                    <option value="sample_real_finger.jpg">1. Living Human Skin (Genuine Finger)</option>
+                                    <option value="sample_cloned_silicone.jpg">2. Cloned Silicone Rubber (Dummy Finger)</option>
+                                    <option value="sample_paper_deed_printout.jpg">3. Land Deed Document Photocopy (Paper Printout)</option>
+                                </select>
+                            </div>
+
+                            <div id="webcamControlsBox" style="display: none; margin-bottom: 12px;">
+                                <button id="btnCaptureWebcam" class="btn-secondary" style="width: 100%; justify-content: center; font-size: 0.85rem;">
+                                    📸 Capture &amp; Scan Fingerprint
+                                </button>
+                            </div>
+
+                            <!-- Scanner Viewport HUD -->
+                            <div class="scanner-viewport">
+                                <span id="scannerHudText" class="scanner-hud-text">HUD: PAD ANALYSIS ACTIVE</span>
+                                <video id="webcamVideo" autoplay playsinline style="display: none; width: 100%; height: 100%;"></video>
+                                <canvas id="scannerCanvas" width="480" height="480" style="width: 100%; height: 100%;"></canvas>
+                                <div class="scanner-overlay"></div>
+                            </div>
+
+                            <div id="lock1BadgeContainer"></div>
+                        </div>
+
+                        <details style="margin-top: 12px; cursor: pointer;">
+                            <summary style="font-size: 0.85rem; font-weight: 600; color: var(--primary);">🔬 Deep Vision Diagnostics</summary>
+                            <div id="lock1DiagBox"></div>
+                        </details>
+                    </div>
+
+                    <!-- LOCK 2: PLACE LOCK -->
+                    <div class="lock-card">
+                        <div>
+                            <div class="lock-title">
+                                <span style="font-size: 1.3rem;">📍</span> Lock 2: Place Lock
+                            </div>
+                            <div class="lock-subtitle">Detects impossible travel speed between deed city &amp; kiosk.</div>
+
+                            <div class="metric-box">
+                                <div style="font-size: 0.82rem; font-weight: 600; color: var(--text-muted); margin-bottom: 4px;">
+                                    Haversine Distance
+                                </div>
+                                <div id="haversineDistVal" class="metric-value">192.6 km</div>
+                                <div id="haversineSpeedDelta" class="metric-delta danger">1155.7 km/h</div>
+                            </div>
+
+                            <div style="font-size: 0.85rem; line-height: 1.5; color: #334155; margin-bottom: 12px;">
+                                <div><b>Home / Deed City:</b> <span id="placeLockHomeCity">Trichy</span></div>
+                                <div><b>Terminal City:</b> <span id="placeLockKioskCity">Coimbatore</span></div>
+                                <div><b>Elapsed Window:</b> <span id="placeLockElapsed">10 minutes</span></div>
+                            </div>
+
+                            <div id="lock2BadgeContainer"></div>
+                        </div>
+
+                        <div id="transitRouteHud" class="route-visual">
+                            <b>🗺️ Transit Route:</b><br/>
+                            <code>Trichy ──[192.6 km in 10m]──▶ Coimbatore</code>
+                        </div>
+                    </div>
+
+                    <!-- LOCK 3: OWNER LOCK (TAMIL VOICE IVR) -->
+                    <div class="lock-card">
+                        <div>
+                            <div class="lock-title">
+                                <span style="font-size: 1.3rem;">📞</span> Lock 3: Owner Lock
+                            </div>
+                            <div class="lock-subtitle">Automated Tamil IVR voice call to 2G basic keypad phone.</div>
+
+                            <!-- Nokia 105 Phone Simulator -->
+                            <div class="keypad-phone">
+                                <div style="font-size: 0.72rem; color: #94a3b8; margin-bottom: 4px; letter-spacing: 0.5px;">
+                                    NOKIA 105 &bull; 2G KEYPAD PHONE
+                                </div>
+                                <div class="phone-screen">
+                                    <div style="color: #22c55e; font-weight: bold; font-size: 0.8rem;">INCOMING AEPS CALL...</div>
+                                    <div id="phoneDisplayUser" style="color: #e2e8f0; font-size: 0.78rem;">+91 9842154321</div>
+                                    <div style="color: #38bdf8; font-size: 0.72rem;">Playing Spoken Tamil IVR</div>
+                                </div>
+
+                                <audio id="tamilAudioEl" src="assets/audio/ivr_prompt_dda72a5f5a.mp3" preload="auto"></audio>
+
+                                <button id="btnPlayAudio" class="btn-secondary" style="width: 100%; justify-content: center; font-size: 0.8rem; margin-bottom: 8px;">
+                                    🔊 Listen to Tamil Call Prompt
+                                </button>
+
+                                <div class="keypad-grid">
+                                    <button id="btnKeypad1" class="key-btn btn-approve">
+                                        <span>[ 1 ]</span>
+                                        <small>ஆம் (Approve)</small>
+                                    </button>
+                                    <button id="btnKeypad9" class="key-btn btn-reject">
+                                        <span>[ 9 ]</span>
+                                        <small>இல்லை (Scam)</small>
+                                    </button>
+                                    <button id="btnKeypad0" class="key-btn btn-timeout">
+                                        <span>[ 0 ]</span>
+                                        <small>No Answer</small>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div id="lock3BadgeContainer" style="margin-top: 12px;"></div>
+                        </div>
+
+                        <details style="margin-top: 12px; cursor: pointer;">
+                            <summary style="font-size: 0.82rem; font-weight: 600; color: var(--primary);">📢 Spoken Tamil Voice Script</summary>
+                            <div style="font-size: 0.78rem; color: #475569; margin-top: 6px; line-height: 1.4;">
+                                <p id="tamilScriptText" style="font-style: italic; margin-bottom: 4px;"></p>
+                                <p id="englishScriptText" style="color: #64748b;"></p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+                <!-- Master Consensus Action Button -->
+                <div class="action-box">
+                    <button id="btnExecuteTxn" class="btn-execute">
+                        🚀 EXECUTE AEPS CASH WITHDRAWAL TRANSACTION
+                    </button>
+
+                    <div id="decisionOutcomeBox"></div>
+                </div>
+            </section>
+
+            <!-- =============================================================== -->
+            <!-- TAB 2: FRAUD INTELLIGENCE & AUDIT LOGS -->
+            <!-- =============================================================== -->
+            <section id="tab-audit" class="tab-content">
+                <div style="margin-bottom: 18px;">
+                    <h3 style="font-size: 1.3rem; font-weight: 700; color: #0f172a;">📊 AePS Fraud Prevention Audit Logs</h3>
+                    <p style="font-size: 0.88rem; color: var(--text-muted);">
+                        Immutable record of all intercepted biometric clone attacks, prevented loss, and attack vectors.
+                    </p>
+                </div>
+
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-title">Total Attacks Blocked</div>
+                        <div id="kpiTotalBlocked" class="kpi-number">3</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-title">Total Savings Protected</div>
+                        <div id="kpiTotalSaved" class="kpi-number" style="color: #059669;">₹28,500</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-title">Success Rate</div>
+                        <div id="kpiSuccessRate" class="kpi-number" style="color: #2563eb;">100.0%</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-title">Avg Fraud Attempt</div>
+                        <div id="kpiAvgFraud" class="kpi-number">₹9,500</div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Beneficiary / Aadhaar</th>
+                                <th>Attempted City</th>
+                                <th>Amount</th>
+                                <th>Failed Locks</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="auditTableBody"></tbody>
+                    </table>
+                </div>
+
+                <div>
+                    <button id="btnDownloadCsv" class="btn-secondary btn-download">
+                        📥 Download RBI Compliance Fraud Audit Report (CSV)
+                    </button>
+                </div>
+            </section>
+
+            <!-- =============================================================== -->
+            <!-- TAB 3: GEO-VELOCITY ANOMALY SANDBOX -->
+            <!-- =============================================================== -->
+            <section id="tab-sandbox" class="tab-content">
+                <div style="margin-bottom: 18px;">
+                    <h3 style="font-size: 1.3rem; font-weight: 700; color: #0f172a;">🗺️ Interactive Travel Velocity &amp; Impossible Travel Sandbox</h3>
+                    <p style="font-size: 0.88rem; color: var(--text-muted);">
+                        Demonstrate how the Haversine formula instantly detects biometric clone attacks between any two locations.
+                    </p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="guide-card">
+                        <h4 style="color: #0f172a;">Trip Parameters</h4>
+                        <div class="form-group">
+                            <label for="sandboxCityA">Registered Land Deed / Home City (Point A):</label>
+                            <select id="sandboxCityA" class="form-control"></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="sandboxCityB">Attempted Micro-ATM Kiosk City (Point B):</label>
+                            <select id="sandboxCityB" class="form-control"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Time Elapsed: <span id="sandboxTimeVal" class="slider-val-badge">15 mins</span></label>
+                            <input type="range" id="sandboxTimeSlider" min="1" max="240" value="15" style="width: 100%;" />
+                        </div>
+                        <div class="form-group">
+                            <label>Maximum Feasible Speed: <span id="sandboxSpeedVal" class="slider-val-badge">120 km/h</span></label>
+                            <input type="range" id="sandboxSpeedSlider" min="60" max="200" step="10" value="120" style="width: 100%;" />
+                        </div>
+                    </div>
+
+                    <div id="sandboxBreakdownCard" class="guide-card" style="box-shadow: 0 4px 15px rgba(0,0,0,0.04);">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- =============================================================== -->
+            <!-- TAB 4: INNOVATION & PITCH GUIDE -->
+            <!-- =============================================================== -->
+            <section id="tab-presentation" class="tab-content">
+                <div style="margin-bottom: 18px;">
+                    <h3 style="font-size: 1.3rem; font-weight: 700; color: #0f172a;">🏆 clonEnd Presentation &amp; Pitch Guide</h3>
+                    <p style="font-size: 0.88rem; color: var(--text-muted);">
+                        Comprehensive technical breakdown matching your project presentation deck and defense jury questions.
+                    </p>
+                </div>
+
+                <div class="guide-grid">
+                    <div class="guide-card">
+                        <h4>1. Problem Statement</h4>
+                        <ul>
+                            <li><strong>The Attack:</strong> Fraudsters extract high-resolution thumbprints from public land registration deed PDFs, cast silicone rubber molds, and withdraw cash at rural Micro-ATMs.</li>
+                            <li><strong>Zero OTP:</strong> AePS is designed without OTP so rural citizens can access banking, creating an open vector for cloned prints.</li>
+                            <li><strong>Vulnerable Demographic:</strong> Over 70% of victims are elderly pensioners and farmers who do not own smartphones or know how to lock Aadhaar on mAadhaar.</li>
+                        </ul>
+                    </div>
+
+                    <div class="guide-card">
+                        <h4>2. The 3-Lock Architecture</h4>
+                        <ul>
+                            <li><strong>Lock 1: Alive Lock:</strong> Vision AI checks blood perfusion (Cr/Cb skin red-shift), micro-texture Laplacian variance, and specular glare.</li>
+                            <li><strong>Lock 2: Place Lock:</strong> Haversine spherical math flags impossible travel velocity (e.g. Trichy deed to Coimbatore in 10 minutes = 1,155 km/h).</li>
+                            <li><strong>Lock 3: Owner Lock:</strong> Automated Tamil voice IVR call to the customer's ₹1,000 basic 2G phone ("Press 1 to approve").</li>
+                            <li><strong>Convergence Rule:</strong> All 3 must pass for cash to dispense. Any failure triggers an immediate block and SMS warning.</li>
+                        </ul>
+                    </div>
+
+                    <div class="guide-card">
+                        <h4>3. Innovation &amp; Uniqueness</h4>
+                        <ul>
+                            <li><strong>No Smartphone or Internet Needed:</strong> Works seamlessly on 2G GSM cellular networks with any ₹1,000 basic button phone.</li>
+                            <li><strong>Zero Hardware Replacement:</strong> Runs on existing Micro-ATM laptops and terminals without requiring banks to buy expensive multi-spectral optical hardware.</li>
+                            <li><strong>Zero Marginal Cost:</strong> Uses open-source computer vision, trigonometric spherical math, and synthesized voice audio.</li>
+                        </ul>
+                    </div>
+
+                    <div class="guide-card">
+                        <h4>4. National Impact &amp; Scale</h4>
+                        <ul>
+                            <li><strong>Financial Inclusion:</strong> In FY2022, AePS processed <strong>1.11 Billion withdrawals worth nearly ₹3 Trillion</strong> (RBI Report).</li>
+                            <li><strong>Zero Leakage:</strong> Prevents devastating cybercrime attacks while keeping Aadhaar biometric transactions accessible for every Indian citizen.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="guide-card" style="background: #f8fafc;">
+                    <h4>💡 Top Viva &amp; Evaluator Questions</h4>
+                    <p style="margin-bottom: 8px;"><strong>Q: Why doesn't UIDAI's existing mAadhaar biometric lock solve this?</strong><br/>
+                    <em>A: mAadhaar requires a smartphone and digital literacy. Over 70% of rural AePS users only possess basic keypad phones.</em></p>
+
+                    <p style="margin-bottom: 8px;"><strong>Q: Why do optical scanners in shops accept silicone fingers?</strong><br/>
+                    <em>A: Existing shop scanners are simple 2D optical sensors that only check ridge contrast, not biological blood perfusion or organic skin chrominance.</em></p>
+
+                    <p style="margin-bottom: 8px;"><strong>Q: How does Lock 3 work if the user has no internet connection?</strong><br/>
+                    <em>A: Standard Telecom IVR operates over voice channels on 2G GSM cellular networks. Even a basic Nokia 105 or JioBharat phone receives calls and transmits DTMF tones.</em></p>
+
+                    <div style="margin-top: 16px;">
+                        <a href="clonEnd_Project_Guide.pdf" download="clonEnd_Project_Guide.pdf" class="btn-secondary btn-download">
+                            📥 Download clonEnd Complete Project Guide (PDF)
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+<script src="static/app.js"></script>
+</body>
+</html>

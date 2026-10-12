@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>clonEnd - Project Roadmap & Architecture Guide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+        @page {
+            size: A4;
+            margin: 15mm 12mm 15mm 12mm;
+            @bottom-right {
+                content: "Page " counter(page);
+                font-family: 'Inter', sans-serif;
+                font-size: 8pt;
+                color: #64748b;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1e293b;
+            line-height: 1.55;
+            font-size: 9.8pt;
+            background: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+            color: #0f172a;
+            margin-top: 0;
+            letter-spacing: -0.3px;
+        }
+
+        /* Cover / Header Banner */
+        .header-banner {
+            background: linear-gradient(135deg, #0b192c 0%, #1e3e62 50%, #000000 100%);
+            border-radius: 12px;
+            padding: 24px 28px;
+            color: #ffffff;
+            margin-bottom: 20px;
+            border-left: 6px solid #3b82f6;
+        }
+
+        .header-title {
+            font-size: 24pt;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-subtitle {
+            font-size: 11pt;
+            color: #93c5fd;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .meta-badges {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 8pt;
+            font-weight: 600;
+            color: #e2e8f0;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* Section Headings */
+        .section {
+            margin-bottom: 22px;
+            page-break-inside: avoid;
+        }
+
+        .section-header {
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 6px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .section-title {
+            font-size: 14.5pt;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin: 0;
+        }
+
+        /* Two Column Layout */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        /* Card Styles */
+        .card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 14px 16px;
+        }
+
+        .card-english {
+            border-left: 4px solid #3b82f6;
+            background: #f0f7ff;
+        }
+
+        .card-thanglish {
+            border-left: 4px solid #f59e0b;
+            background: #fffbeb;
+        }
+
+        .card-title {
+            font-size: 10.5pt;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .card-english .card-title { color: #1d4ed8; }
+        .card-thanglish .card-title { color: #b45309; }
+
+        /* Lock Deep Dive Cards */
+        .lock-container {
+            border-radius: 10px;
+            border: 1px solid #cbd5e1;
+            padding: 14px 18px;
+            margin-bottom: 14px;
+            background: #ffffff;
+            page-break-inside: avoid;
+        }
+
+        .lock-1 { border-left: 5px solid #10b981; }
+        .lock-2 { border-left: 5px solid #f59e0b; }
+        .lock-3 { border-left: 5px solid #6366f1; }
+        .lock-engine { border-left: 5px solid #ec4899; }
+
+        .lock-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .lock-name {
+            font-size: 12pt;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .status-pill-pass {
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 7.5pt;
+            font-weight: 700;
+        }
+
+        .status-pill-fail {
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 7.5pt;
+            font-weight: 700;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 8.8pt;
+            margin: 10px 0;
+            background: #ffffff;
+        }
+
+        th {
+            background: #0f172a;
+            color: #ffffff;
+            text-align: left;
+            padding: 8px 10px;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+            font-size: 8.5pt;
+        }
+
+        td {
+            padding: 7px 10px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) td {
+            background: #f8fafc;
+        }
+
+        /* Flow Diagrams */
+        .flow-box {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 12px 14px;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 7.8pt;
+            line-height: 1.45;
+            margin: 10px 0;
+            white-space: pre;
+            overflow-x: hidden;
+        }
+
+        /* Code / Quote Highlights */
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: #e2e8f0;
+            color: #0f172a;
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-size: 8.5pt;
+        }
+
+        .tamil-quote {
+            background: #eff6ff;
+            border-left: 3px solid #3b82f6;
+            padding: 8px 12px;
+            font-style: italic;
+            color: #1e3a8a;
+            margin: 6px 0;
+            border-radius: 0 6px 6px 0;
+            font-size: 8.8pt;
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Banner -->
+    <div class="header-banner">
+        <div class="header-title">🛡️ clonEnd</div>
+        <div class="header-subtitle">
+            AI-Powered 3-Lock Biometric Defense Against Aadhaar Fingerprint Cloning Scams
+        </div>
+        <div class="meta-badges">
+            <span class="badge">Cybersecurity &amp; Digital India</span>
+            <span class="badge">AePS Fraud Prevention</span>
+            <span class="badge">Python 3.14 &bull; OpenCV &bull; Streamlit</span>
+            <span class="badge">Bilingual: English + Thanglish</span>
+        </div>
+    </div>
+
+    <!-- 1. The Core Problem -->
+    <div class="section">
+        <div class="section-header">
+            <h2 class="section-title">1. The Problem: How Thumbprint Cloning Works</h2>
+        </div>
+        <div class="grid-2">
+            <div class="card card-english">
+                <div class="card-title">🇬🇧 English Explanation</div>
+                <p><b>The Scam:</b> Public land registry deeds (Patta/Chitta) published online contain high-resolution inked thumb impressions (<i>kai-naattu</i>). Fraudsters download these PDFs, fabricate physical 3D silicone/rubber stamps, and withdraw cash at rural Bank Mitra Micro-ATMs.</p>
+                <p><b>The Security Loophole:</b></p>
+                <ul>
+                    <li><b>Zero OTP:</b> AePS cash withdrawal does not send SMS or OTP.</li>
+                    <li><b>No Smartphone:</b> Over 70% of rural elderly beneficiaries only own 2G keypad phones and cannot use mAadhaar biometric lock.</li>
+                    <li><b>Dumb Scanners:</b> Basic shop scanners only check 2D optical contrast, unable to distinguish living warm tissue from dead silicone rubber.</li>
+                </ul>
+            </div>
+
+            <div class="card card-thanglish">
+                <div class="card-title">🇮🇳 Thanglish Explanation</div>
+                <p><b>Enna Problem?</b> Namma Government land pathiram (registration deed/patta) PDF internet-la irunthu download panni, athula irukkura vivasaayigaloda kai-naattu-ai silicone rubber / wax-la dummy duplicate viral (cloned thumb) ready panraanga.</p>
+                <p><b>Yen System Fail Aaguthu?</b></p>
+                <ul>
+                    <li><b>No OTP:</b> Micro-ATM / Petti kadai-la thumb vecha udane ₹10,000 varaikkum kaasu thirudiraanga. OTP ethuvum varaathu!</li>
+                    <li><b>Smart Phone Illa:</b> Gramathu periyavangalukku Android phone illa, mAadhaar app-la lock panna theriyaathu.</li>
+                    <li><b>Dummy Scanner:</b> Kadaigal-la irukkura scanner machine-ku dummy silicone-kum unmaiyaana skin-kum vithiyaasam theriyaathu.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. The 3 Locks Overview -->
+    <div class="section">
+        <div class="section-header">
+            <h2 class="section-title">2. Proposed Solution: The 3 Locks Architecture</h2>
+        </div>
+        <div class="flow-box">
+                       [ Customer Transaction Request (Aadhaar + City + ₹ Amount) ]
+                                                    │
+                   ┌────────────────────────────────┼────────────────────────────────┐
+                   │                                │                                │
+                   ▼                                ▼                                ▼
+           [ 1. ALIVE LOCK ]                [ 2. PLACE LOCK ]                [ 3. OWNER LOCK ]
+        AI Bio-Liveness Check            Impossible Travel Check           Tamil Voice IVR Call
+      • Blood perfusion & skin chroma  • Haversine Distance (km)         • Calls 2G Keypad Phone
+      • Papillary ridge micro-texture  • Speed = Distance / Time         • "Press 1 to release cash"
+      • Glare & paper photocopy filter • >120 km/h = Fraud Anomaly       • No smartphone needed!
+                   │                                │                                │
+                   └────────────────────────────────┼────────────────────────────────┘
+                                                    │
+                                                    ▼
+                                        [ MASTER DECISION ENGINE ]
+                                                    │
+                           ┌────────────────────────┴────────────────────────┐
+                           ▼                                                 ▼
+             [ ALL 3 PASSED = RELEASE CASH ]                    [ ANY FAILED = FRAUD BLOCKED ]
+             • Green Digital Cash Receipt                       • Red Alert & Zero Financial Loss
+             • Beneficiary Account Balance Updated              • Incident Logged + Tamil SMS Alert
+        </div>
+    </div>
+
+    <!-- Page Break for Clean Sectioning -->
+    <div class="page-break"></div>
+
+    <!-- 3. Deep Dive into the 3 Locks -->
+    <div class="section">
+        <div class="section-header">
+            <h2 class="section-title">3. Detailed Breakdown of the 3 Security Locks</h2>
+        </div>
+
+        <!-- Lock 1 -->
+        <div class="lock-container lock-1">
+            <div class="lock-header">
+                <span class="lock-name">👁️ Lock 1: Alive Lock (Computer Vision &amp; Bio-Liveness AI)</span>
+                <span class="status-pill-pass">core/alive_lock.py</span>
+            </div>
+            <p><b>How it works:</b> Captures the finger at the kiosk using the webcam in &lt;1 second. Examines multi-spectral human skin chrominance (YCrCb &amp; HSV), capillary blood perfusion, and papillary micro-texture using Laplacian variance.</p>
+            <div class="grid-2">
+                <div>
+                    <b>🇬🇧 English Details:</b>
+                    <ul>
+                        <li><b>Living Skin:</b> Human blood has high hemoglobin red absorption ($133 \le \text{Cr} \le 173$) and fine friction ridges ($80 \le \text{Laplacian} \le 2200$). Verified score: <b>68% – 95% (GREEN)</b>.</li>
+                        <li><b>Silicone / Rubber:</b> Flat texture, lacks organic blood diffusion, reflects localized specular glare points. Score: <b>51% (BLOCKED)</b>.</li>
+                        <li><b>Paper Deed Printout:</b> Flat white toner background, monochrome ink, no blood dispersion. Score: <b>0% (BLOCKED)</b>.</li>
+                    </ul>
+                </div>
+                <div>
+                    <b>🇮🇳 Thanglish Details:</b>
+                    <ul>
+                        <li><b>Camera Check:</b> Kiosk camera viral-ai paathu, ithu ratham oodura unmaiyaana skin-aa illa dummy rubber-aa-nu 1 second-la kandupidikkum.</li>
+                        <li><b>Silicone Kandupidikkum:</b> Dummy rubber finger mela light patta plastic cover maathiri glitter aagum (glare). Blood flow irukkaathu.</li>
+                        <li><b>Paper Printout:</b> Land deed Xerox printout-la vella paper &amp; black ink mattum irukkum. System udane 0% score pottu block pannidum.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lock 2 -->
+        <div class="lock-container lock-2">
+            <div class="lock-header">
+                <span class="lock-name">📍 Lock 2: Place Lock (Geo-Location &amp; Impossible Travel Check)</span>
+                <span class="status-pill-pass">core/place_lock.py</span>
+            </div>
+            <p><b>How it works:</b> Uses the spherical <b>Haversine Formula</b> to measure great-circle distance between the registered deed/home city and current Micro-ATM kiosk, calculating implied travel speed: $\text{Speed} = \frac{\text{Distance}}{\text{Time}}$.</p>
+            <div class="grid-2">
+                <div>
+                    <b>🇬🇧 English Details:</b>
+                    <ul>
+                        <li><b>Local Transaction:</b> Registered in Trichy, withdraws in Trichy $\rightarrow$ Distance $0\text{ km}$, Speed $0\text{ km/h}$ $\rightarrow$ <b>PASS (GREEN)</b>.</li>
+                        <li><b>Impossible Travel:</b> Registered in Trichy, attempted in Coimbatore ($220\text{ km}$) within $10\text{ mins}$ $\rightarrow$ Implied Speed = $\mathbf{1,155\text{ km/h}}$! Flags <b>Impossible Travel Anomaly (BLOCKED)</b>.</li>
+                    </ul>
+                </div>
+                <div>
+                    <b>🇮🇳 Thanglish Details:</b>
+                    <ul>
+                        <li><b>Math Logic:</b> Oru vivasaayi-oda land pathiram register aana ooru <b>Trichy</b>. Scammer antha thumb-ai eduthu 10 nimishathula <b>Coimbatore</b>-la cash edukka try panraan.</li>
+                        <li><b>Speed Anomaly:</b> Trichy to Coimbatore 220 km. 10 nimishathula poga speed 1,155 km/h aagum! Ground travel limit 120 km/h dhaan. System spot-la fraud nu <b>RED flag panni block pannidum</b>!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lock 3 -->
+        <div class="lock-container lock-3">
+            <div class="lock-header">
+                <span class="lock-name">📞 Lock 3: Owner Lock (Tamil Voice Call on 2G Keypad Phone)</span>
+                <span class="status-pill-pass">core/owner_lock.py</span>
+            </div>
+            <p><b>How it works:</b> Bridges the digital divide. Triggers an automated GSM IVR phone call to the owner’s basic ₹1,000 keypad phone, speaking in clear, friendly Tamil (via <code>gTTS</code>).</p>
+            <div class="tamil-quote">
+                "வணக்கம் Ramasamy! உங்கள் ஆதார் எண் XXXX-XXXX-1011 பயன்படுத்தி, Coimbatore வங்கி மித்ரா மையத்தில் ரூபாய் 3,000 பணம் எடுக்க முயற்சி செய்யப்படுகிறது. நீங்கள் தான் பணம் எடுக்கிறீர்கள் என்றால் 1-ஐ அழுத்தவும். நீங்கள் இல்லை என்றால் 9-ஐ அழுத்தவும்."
+            </div>
+            <div class="grid-2">
+                <div>
+                    <b>🇬🇧 English Details:</b>
+                    <ul>
+                        <li><b>Press 1:</b> Owner authorized transaction $\rightarrow$ <b>PASS (Approved)</b>.</li>
+                        <li><b>Press 9:</b> Owner alerted to scam $\rightarrow$ <b>BLOCKED (Scam Aborted)</b>.</li>
+                        <li><b>Timeout / No Answer:</b> Phone unreachable $\rightarrow$ <b>HELD FOR SAFETY</b>.</li>
+                    </ul>
+                </div>
+                <div>
+                    <b>🇮🇳 Thanglish Details:</b>
+                    <ul>
+                        <li><b>No Smartphone Needed:</b> Normal keypad phone-ku Tamil-la call poi kekkum.</li>
+                        <li><b>1 Amukkina:</b> Unmaiyaana aal dhaan kaasu edukraar nu cash release aagum.</li>
+                        <li><b>9 Amukkina:</b> Thappana aal edukraan nu therinju spot-la block aagidum!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Master Decision Engine -->
+        <div class="lock-container lock-engine">
+            <div class="lock-header">
+                <span class="lock-name">⚖️ Master Decision Engine &amp; Audit Logger</span>
+                <span class="status-pill-pass">core/decision_engine.py</span>
+            </div>
+            <p><b>Convergence Rule:</b> All 3 locks must pass. If any lock fails, transaction is blocked, logged in <code>data/fraud_logs.csv</code>, and an automated Tamil emergency SMS is prepared for the victim.</p>
+        </div>
+    </div>
+
+    <!-- Page Break for Clean Sectioning -->
+    <div class="page-break"></div>
+
+    <!-- 4. Technologies Used Table -->
+    <div class="section">
+        <div class="section-header">
+            <h2 class="section-title">4. Technologies &amp; Tools Used: What &amp; Why?</h2>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 18%;">Technology</th>
+                    <th style="width: 25%;">Role in Project</th>
+                    <th style="width: 57%;">Why Selected? (Yen Itha Choose Pannom?)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><b>Python 3.14</b></td>
+                    <td>Core Programming Language</td>
+                    <td>Universal standard for AI, computer vision, and mathematical calculations. Fast execution and zero boilerplate.</td>
+                </tr>
+                <tr>
+                    <td><b>Streamlit</b></td>
+                    <td>Kiosk Web Application</td>
+                    <td>Specified directly in Slide 4 &amp; 5 of your PPT. Builds a reactive Bank Mitra terminal with webcam input, audio playback, and metrics in pure Python.</td>
+                </tr>
+                <tr>
+                    <td><b>OpenCV (cv2)</b></td>
+                    <td>Computer Vision &amp; PAD</td>
+                    <td>Real-time camera frame processing. Converts color spaces (YCrCb &amp; HSV), calculates Laplacian texture gradients, and draws visual scanning reticles.</td>
+                </tr>
+                <tr>
+                    <td><b>gTTS (Google TTS)</b></td>
+                    <td>Tamil Voice Synthesis</td>
+                    <td>Generates crystal-clear, natural spoken Tamil audio prompts (<code>lang='ta'</code>) for the 2G keypad phone simulation with ₹0 API cost.</td>
+                </tr>
+                <tr>
+                    <td><b>Haversine Formula</b></td>
+                    <td>Geo-Distance Math</td>
+                    <td>Calculates great-circle distance between Indian cities without requiring paid Google Maps APIs. Runs instantaneously offline.</td>
+                </tr>
+                <tr>
+                    <td><b>Pandas &amp; CSV</b></td>
+                    <td>Data Layer &amp; Audit Logs</td>
+                    <td>Manages rural beneficiary profiles (<code>beneficiaries.csv</code>) and keeps an immutable audit log of intercepted attacks (<code>fraud_logs.csv</code>).</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 5. Complete Step-by-Step Build Roadmap -->
+    <div class="section">
+        <div class="section-header">
+            <h2 class="section-title">5. Implementation Roadmap Followed in Project</h2>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 12%;">Step</th>
+                    <th style="width: 28%;">Milestone</th>
+                    <th style="width: 60%;">Deliverables &amp; Artifacts</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><b>Step 1</b></td>
+                    <td>Data Layer Setup</td>
+                    <td>Created <code>data/tamil_nadu_cities.json</code> (GPS coordinates), <code>data/beneficiaries.csv</code> (rural user records), and <code>data/fraud_logs.csv</code> (audit log).</td>
+                </tr>
+                <tr>
+                    <td><b>Step 2</b></td>
+                    <td>Lock 1: Alive Lock</td>
+                    <td>Implemented <code>core/alive_lock.py</code> with multi-spectral skin chrominance, micro-texture gradients, and paper/glare detection heuristics.</td>
+                </tr>
+                <tr>
+                    <td><b>Step 3</b></td>
+                    <td>Lock 2: Place Lock</td>
+                    <td>Implemented <code>core/place_lock.py</code> with Haversine spherical distance calculation and impossible velocity anomaly filtering.</td>
+                </tr>
+                <tr>
+                    <td><b>Step 4</b></td>
+                    <td>Lock 3: Owner Lock</td>
+                    <td>Implemented <code>core/owner_lock.py</code> with gTTS Tamil voice generation and DTMF keypad IVR response state machine.</td>
+                </tr>
+                <tr>
+                    <td><b>Step 5</b></td>
+                    <td>Decision Consensus Engine</td>
+                    <td>Implemented <code>core/decision_engine.py</code> unifying all 3 locks, issuing digital receipts on pass, and auto-logging fraud on fail.</td>
+                </tr>
+                <tr>
+                    <td><b>Step 6</b></td>
+                    <td>Demo Asset Generation</td>
+                    <td>Created <code>assets/samples/</code> with high-resolution test images (Genuine Skin, Cloned Silicone, Paper Printout) for 1-click fail-safe demos.</td>
+                </tr>
+                <tr>
+                    <td><b>Step 7</b></td>
+                    <td>Bank Mitra Web Portal</td>
+                    <td>Built <code>app.py</code> and <code>static/style.css</code> featuring Kiosk terminal, live webcam, Nokia keypad phone, and RBI audit dashboard.</td>
+                </tr>
+                <tr>
+                    <td><b>Step 8</b></td>
+                    <td>Verification &amp; Test Suite</td>
+                    <td>Created and executed <code>test_core.py</code>, passing all end-to-end tests with exit code 0.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 6. Viva & Hackathon Q&A -->
+    <div class="section">
+        <div class="section-header">
+            <h2 class="section-title">6. Hackathon Pitch &amp; Viva Q&amp;A Cheatsheet</h2>
+        </div>
+        <div class="card" style="margin-bottom: 10px;">
+            <b>Q1: Why can't UIDAI's mAadhaar biometric lock solve this problem?</b><br/>
+            <i>English:</i> mAadhaar requires a smartphone, app literacy, and active internet. Over 70% of rural AePS beneficiaries are elderly villagers and laborers with basic 2G phones.<br/>
+            <i>Thanglish:</i> Gramathu periyavangalukku smart phone illa, mAadhaar app use panna theriyaathu. Namma system 2G normal keypad phone-la Tamil voice call vazhiya solve pannuthu.
+        </div>
+        <div class="card" style="margin-bottom: 10px;">
+            <b>Q2: What is the cost of deploying clonEnd across India?</b><br/>
+            <i>English:</i> ₹0 marginal hardware cost! It runs entirely as software on existing Bank Mitra laptops using their existing webcams and telecom IVR lines.<br/>
+            <i>Thanglish:</i> Puthusa entha costly machine-um vaanga thevaiyilla. Kiosk computer webcam and free open-source software dhaan. Digital India-la irukkura ₹3 Trillion AePS transactions-ai zero cost-la protect pannalam!
+        </div>
+    </div>
+
+</body>
+</html>
